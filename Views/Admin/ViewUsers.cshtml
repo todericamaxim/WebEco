@@ -1,0 +1,65 @@
+﻿@model IEnumerable<WebEcom.Models.User>
+
+@{
+    ViewBag.Title = "ViewUsers";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<table class="table table-striped" >
+    <thead>
+        <tr style="background-color: crimson;height:50px;text-align:center">
+            <th>User Image</th>
+            <th>User Login</th>
+            <th> User password</th>
+            <th>User Email </th>
+            <th>Action </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <div class="img-thumbnail">
+                        <img width="70" height="70"
+                             src="@Url.Action("GetImageUser","Admin", new {ids=item.User_Id})" />
+                    </div>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User_login)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User_password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User_Email)
+                </td>
+               
+               
+                <td>
+                    <button type="button" class="btn btn-success  glyphicon glyphicon-pencil"
+                            onclick="location.href='@Url.Action("EditUser","Admin", new { id=item.User_Id})'">
+                        Edit
+                    </button>
+                    | <button type="button" class="btn btn-warning  glyphicon glyphicon-list"
+                              onclick="location.href='@Url.Action("DetailUser","Admin", new { id=item.User_Id})'">
+                        Detail
+                    </button> |
+
+                    <button type="button" class="btn btn-danger  glyphicon glyphicon-trash"
+                            onclick="location.href='@Url.Action("DeleteUser","Admin", new { id=item.User_Id})'">
+                        Delete 
+                    </button> |
+
+                    <button type="button" class="btn btn-primary  glyphicon glyphicon-envelope"
+                            onclick="location.href='@Url.Action("SendEmail","Admin", new { send=item.User_Id})'">
+                        Email
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+

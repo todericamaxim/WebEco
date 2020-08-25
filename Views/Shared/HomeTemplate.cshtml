@@ -1,0 +1,71 @@
+﻿@using WebEcom.Models 
+@using WebEcom.Controllers
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+   <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2" >
+                List
+                <div style="border: 1px blue solid; height:70px;">CATEGORY BLOCK</div>
+                <div class="btn-group-vertical btn-block">
+                    <div id="categories" style="background-color: #646c77">
+                        @{Html.RenderAction("ListHome", "Principal", new { @class = "btn btn-primary btn-lg" });}
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-10" >
+                <div>
+                    <nav class="navbar navbar-inverse" style="        background-color: #337ab7;">
+                        <div class="container-fluid">
+                            <div class="navbar-header">
+                                <a class="navbar-brand" href="#">
+                                    <img src="~/Content/addto cart.gif" class="img-thumbnail" width="70" height="1">
+                                </a>
+                            </div>
+                            <ul class="nav navbar-nav">
+                                @*<li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">Page 1</a></li>
+                    <li><a href="#">Page 2</a></li>*@
+                                <li>@Html.ActionLink("Basket", "Index", "Cart")</li>
+                            </ul>
+
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="@Url.Action("Login","Principal")"><span class="glyphicon glyphicon-user"></span>Sign In</a></li>
+
+                                <li><a href="@Url.Action("Register","Principal")"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                            </ul>
+
+                            <form class="navba-form navbar-left" action="/action_page.php">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Search">
+                                </div>
+                                <button type="submit" class="btn btn-default">Submit</button>
+                            </form>
+                        </div>
+                    </nav>
+                </div>
+                <div class="col-md-12" >
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+   </div>
+   
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+

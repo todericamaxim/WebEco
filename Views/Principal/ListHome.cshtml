@@ -1,0 +1,11 @@
+﻿@model Dictionary<string,int>
+
+@{
+    Layout = null;
+    
+        }
+
+@foreach (var item in Model)
+{
+    @Html.RouteLink(item.Key, new { controller = "Principal", action = "ListProduct",id=item.Value });
+}

@@ -1,0 +1,47 @@
+﻿@model WebEcom.Models.User
+
+@{
+    ViewBag.Title = "DetailUser";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<h2>DetailUser</h2>
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.User_login)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User_login)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User_password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User_password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User_Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User_Email)
+        </dd>
+    </dl>
+    @foreach (var item in ViewBag.Prod)
+    {
+        @item.Product_Name
+        @item.Product_price
+    }
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.User_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

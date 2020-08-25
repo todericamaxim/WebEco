@@ -1,0 +1,22 @@
+﻿@model dynamic
+@using WebEcom.Controllers
+@{
+    ViewBag.Title = "DetailUser1";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<h2>DetailUser1</h2>
+
+<div>
+    <h4>User</h4>
+    <hr />
+   
+    @foreach (var item in Model.prod)
+    {
+        @item.Product_Id
+    }
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.User_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

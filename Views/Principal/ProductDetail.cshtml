@@ -1,0 +1,43 @@
+﻿@model WebEcom.Models.Product
+
+@{
+    ViewBag.Title = "ProductDetail";
+    Layout = "~/Views/Shared/HomeTemplate.cshtml";
+}
+
+<div class="container   ">
+    <div class="row">
+        <div style="height:400px;" class=" col-md-4">
+            <img width="400" height="400"  class="img-thumbnail"    
+                 src="@Url.Action("GetImageProduct","Principal", new {id=Model.Product_Id })" />
+        </div>
+
+        <div class="col-md-7" style="height: 500px;background-color: white">
+            <div>
+                <h2>  @Html.DisplayFor(model => model.Product_Name)</h2>
+                <hr />
+            </div>
+            <div style="height:190px;background-color:white">
+                @Html.DisplayFor(model => model.Product_Descr)
+                
+
+            </div>
+            <hr />
+            <div>
+                Price: @Html.DisplayFor(model => model.Product_price)
+            </div>
+            <div>
+                Posted by:@Session["NameUser"]
+            </div>
+            <button type="button" class="btn btn-danger  glyphicon glyphicon-shopping-cart"
+                    onclick="location.href='@Url.Action("Buy","Cart", new { id=Model.Product_Id})'">
+                Buy
+            </button>
+            <button type="button" class="btn btn-primary  glyphicon glyphicon-remove"
+                    onclick="location.href='@Url.Action("ListProduct","Principal", new { id=Model.Product_CategoryID})'">
+                Back
+            </button>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,47 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+</head>
+<body>
+    <div style="position:relative;">
+        <div class="container-fluid" style="position:absolute;border:2px green solid;height:600px;
+width:600px;left:500px">
+            <div>
+                @RenderBody()   
+            </div>
+        </div>
+        <div style="border:3px blue solid; background-image:url('../../Content/beauty.jpg');
+        background-size:500px 570px;position:absolute;
+        background-repeat:no-repeat;
+        height:600px;
+        width:500px">
+
+        </div>
+    </div>
+    
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+
+
+
+

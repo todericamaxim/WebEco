@@ -1,0 +1,31 @@
+﻿@model WebEcom.Models.MailModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+<h2>Index</h2>
+<fieldset>
+    <legend>
+        Send email to:<strong> @Session["Sender"]</strong>
+    </legend>
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary()
+
+        <p></p>
+
+        <p>Subject: </p>
+        <p>@Html.TextBoxFor(m => m.Subject, new { @class = "form-control" })</p>
+        <p>Body: </p>
+        <p>@Html.TextAreaFor(m => m.Body, new { @class = "form-control" })</p>
+        @*<input type="submit" value="Send" />*@
+        <button type="submit" class="btn btn-primary  glyphicon glyphicon-ok">
+            Send
+        </button>
+        <button type="button" class="btn btn-danger  glyphicon glyphicon-remove"
+                onclick="location.href='@Url.Action("ViewUsers","Admin")'">
+            Cancel
+        </button>
+        
+    }
+</fieldset>

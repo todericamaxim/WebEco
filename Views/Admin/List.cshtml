@@ -1,0 +1,15 @@
+﻿@model IEnumerable<string>
+
+@{Layout = null;}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@foreach (var item in Model)
+{
+    @Html.RouteLink(item, new
+{
+    controller = "Admin",
+    action = item
+});
+}

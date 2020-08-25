@@ -1,0 +1,37 @@
+﻿@model IEnumerable<WebEcom.Models.Category>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/HomeTemplate.cshtml";
+}
+
+
+
+<div class="container-fluid">
+
+    <div class="row text-center">
+        @foreach (var item in Model)
+        {
+            
+                <div class="col-md-10 col-md-3" style="border: 5px white solid;">
+                    <div style="" class="img-thumbnail">
+                        <img width="200" height="200"
+                             src="@Url.Action("GetImage","User", new { item.Id })" />
+                    </div>
+
+                    <div style="margin-top:1px;">
+                        <div style="border: 1px white solid; width:200px;height:40px; margin:auto;">
+                            
+
+                            <button type="button" class="btn btn-primary btn-block glyphicon glyphicon-chevron-right"
+                                    onclick="location.href='@Url.Action("ListProduct","Principal", new { id=item.Id})'">
+                                @item.Name
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            
+        }
+
+    </div>
+</div>

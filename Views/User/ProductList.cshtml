@@ -1,0 +1,67 @@
+﻿@model IEnumerable<WebEcom.Models.Product>
+
+@{
+    ViewBag.Title = "ProductList";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+
+}
+
+<h2>ProductList</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Image
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Product_Name)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Product_price)
+        </th>
+
+
+        <th>Action</th>
+    </tr>
+
+@foreach (var item in Model) 
+{    
+    <tr>
+        <td>
+            <div class="img-thumbnail">
+                <img width="70" height="70"
+                     src="@Url.Action("GetImageProduct","User", new { id=item.Product_Id })" />
+            </div>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product_Name)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.Product_price)
+        </td>
+        
+        <td>
+        @Html.ActionLink("Edit", "EditProduct", routeValues: null, htmlAttributes: new { id = item.Product_Id, @class = "btn btn-primary", @role = "button" }) |
+       |
+            <button type="button" class="btn btn-danger  glyphicon glyphicon-trash"
+                    onclick="location.href='@Url.Action("ProductDetail","Principal", new { id=item.Product_Id})'">
+                Detail
+            </button>|
+
+
+        <button type="button" class="btn btn-warning  glyphicon glyphicon-trash"
+                onclick="location.href='@Url.Action("DeleteProduct","User", new { id=item.Product_Id})'">
+            Delete
+        </button>
+      
+    </td>
+    </tr>
+}
+
+</table>

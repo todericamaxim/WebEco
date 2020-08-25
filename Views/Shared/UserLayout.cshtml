@@ -1,0 +1,64 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Page</title>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/Site.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+   
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2" style="background-color:red;height:300px">
+            <div id="categories">
+                <div style="border:2px green solid; ">
+                    <hr /><hr /><hr /><hr /><hr />
+                </div>
+                @{Html.RenderAction("CreateProd", "User");}
+            </div>
+        </div>
+        <div class="col-md-10" style="background-color:blue;height:300px">
+            <div class="container-fluid">
+                <div class="row">
+                    <div style="height:100px;background-color:aqua">
+                        <div class="col-md-10">@Session["UserName"]</div>
+                        <div class="col-md-1">
+                            @Html.ActionLink("LogOut", "Abandon", "User", routeValues: null,
+ htmlAttributes: new { @class = "btn btn-primary", @role = "button" })
+                        </div>
+                        <div class="col-md-1" style="background-color: crimson;height:100px;">
+                            <img class=" img-circle img-thumbnail" width="200" height="100"
+                                 style="width:90px;height:90px"
+         src="@Url.Action("GetImageUser","User",new { id=Session["UserID"]})" />
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12" style="background-color:darkmagenta;height:500px">                        
+                        @RenderBody()
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+
+
+

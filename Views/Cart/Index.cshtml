@@ -1,0 +1,113 @@
+﻿@model WebEcom.Models.Client
+@using WebEcom.Models
+@using Newtonsoft.Json;
+@{
+    Layout = null;
+    var client = ViewBag.Client;
+   
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body style="background-color: #e9ebf2;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2" style="background-color:aqua;height:500px"></div>
+            <div class="col-md-8" style="background-color:red;height:510px">
+                <div class="col-md-4" style="border:2px black solid; border-radius:1px; background-color: chocolate;height:490px;top:20px">
+                    @foreach (var item in (List<Item>)Session["cart"])
+                    {
+                        <div class="col-md-4">
+                            <img src="@Url.Action("GetImageProd","Cart",new {id=item.Product.Product_Id })"
+                                 style="height:75px;width:75px" />
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-4" style="background-color:gold; font-family:'Lucida Console';font-size:12px">
+                                @item.Product.Product_Name
+                            </div>
+                            <div class="col-md-2" style="background-color:crimson">
+                               
+                                <button type="button" class="btn btn-primary glyphicon glyphicon-remove"
+                                        onclick="location.href='@Url.Action("Remove","Cart", new { id=item.Product.Product_Id})'">
+                                    Remove
+                                </button>
+                            </div>
+                            <div class="col-md-7" style="background-color:darkblue;font-size:15px;color:red">
+                                @item.Product.Product_price
+                            </div>
+                        </div> 
+
+                        @*@item.Quantity
+            @(item.Product.Product_price * item.Quantity)*@
+
+                        <hr />
+                    }
+
+
+
+                </div>
+                <div class="col-md-4" style="border: 2px black solid; border-radius: 1px; background-color: darkgrey; height: 490px; top: 20px">
+                    <br />                
+                    @using (Html.BeginForm("Client_create", "Principal", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <div style="font-family:Tahoma;
+    color:black;text-align:center;font-size:25px">Address Detail</div>
+    <hr />
+                        <div style="color: black;text-align: left;font-size: 18px">Full Name:</div>
+
+                            @Html.Editor("client.Client_name")                            
+
+                            <h6 style="color: black;text-align: left;font-size: 18px;">Adrress:</h6>
+                            @Html.Editor("client.Client_adress")                            
+
+                            <h6 style="color: black;text-align: left;font-size: 18px;">Email:</h6>
+                            @Html.Editor("client.Client_Email")
+                           
+                        
+                    }
+
+                </div>
+                <div class="col-md-4" style="border: 2px black solid; border-radius: 1px; background-color: chartreuse; height: 490px; top: 20px">
+                    <br />
+                    <img src="~/Content/Card.png" style="width: 90%;" class="img-thumbnail" />
+                    <div style="color:black;text-align:center;font-size:25px">Cart Detail</div>
+                    <hr />
+                    <div style="color: black;text-align: left;font-size: 18px">Name of cart:</div>
+                    <input type="text" style="border: none;color: white" />
+                    <br /><br />
+                    <div style="color: black;text-align: left;font-size: 18px;">Cart number</div>
+                    <input type="number" style="margin:0; border: none; color: white" />
+                    <br /><br />
+
+                    
+                    <button type="button" class="btn btn-primary glyphicon glyphicon-ok"
+                            onclick="location.href='@Url.Action("Client_create","Principal", new { client=Model})'">
+                        Pay
+                    </button>
+
+                    
+
+
+                </div>
+            </div>
+            <div class="col-md-2" style="background-color:blue;height:500px"></div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+
+

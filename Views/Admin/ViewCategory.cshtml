@@ -1,0 +1,45 @@
+﻿@model IEnumerable<WebEcom.Models.Category>
+
+@{
+    ViewBag.Title = "ViewCategory";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<h2>ViewCategory</h2>
+
+
+<table class="table table-condensed table-hover">
+    <tr>
+        <th> Image of Category </th>
+        <th> Name of Category</th>
+        <th> Action</th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        <div class="img-thumbnail">
+            <img width="70" height="70"
+                 src="@Url.Action("GetImageCategory","Admin", new { item.Id })" />
+        </div>
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>   
+    <td>
+        <button type="button" class="btn btn-success  glyphicon glyphicon-pencil"
+                onclick="location.href='@Url.Action("EditCategory","Admin", new { id=item.Id})'">
+            Edit
+        </button> |
+
+        <button type="button" class="btn btn-danger  glyphicon glyphicon-trash"
+                onclick="location.href='@Url.Action("DeleteCategory","Admin", new { id=item.Id})'">
+            Delete
+        </button>
+
+        
+    </td>
+</tr>
+}
+
+</table>

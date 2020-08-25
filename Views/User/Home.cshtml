@@ -1,0 +1,30 @@
+﻿@model WebEcom.Models.User
+
+@{
+    ViewBag.Title = "Ex";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+   }
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Nr</th>
+            <th scope="col">Message</th>
+            <th scope="col">Date</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.Message)
+        {
+            <tr>
+                <th scope="row">*</th>
+                <td>@item.Message.ToString()</td>
+                <td></td>            
+            </tr> 
+        }
+    </tbody>
+</table>
+
+
+
+

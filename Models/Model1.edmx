@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WebEconModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ImageData" Type="varbinary(max)" />
+          <Property Name="ImageMimeType" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Client_Id" />
+          </Key>
+          <Property Name="Client_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Client_adress" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Client_Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Client_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Client_json" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="MessageTB">
+          <Key>
+            <PropertyRef Name="Nr" />
+          </Key>
+          <Property Name="Message" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="ID_User" Type="int" Nullable="false" />
+          <Property Name="Nr" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Product_Id" />
+          </Key>
+          <Property Name="Product_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Product_Descr" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Product_price" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="Product_CategoryID" Type="int" />
+          <Property Name="ImageData" Type="varbinary(max)" />
+          <Property Name="ImageMimeType" Type="nvarchar" MaxLength="50" />
+          <Property Name="Id_USER" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="User_Id" />
+          </Key>
+          <Property Name="User_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="User_password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="User_Email" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="User_password_1" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="ImageDATA" Type="varbinary(max)" />
+          <Property Name="ImageMMType" Type="nvarchar" MaxLength="50" />
+          <Property Name="User_message" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_MessageTB_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="MessageTB" Type="Self.MessageTB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="MessageTB">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Product_CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Id_USER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WebEconModelStoreContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MessageTB" EntityType="Self.MessageTB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_MessageTB_User" Association="Self.FK_MessageTB_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="MessageTB" EntitySet="MessageTB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Category" Association="Self.FK_Product_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_User" Association="Self.FK_Product_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WebEconModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImageData" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImageMimeType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Product_Category" FromRole="Category" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="User_Id" />
+          </Key>
+          <Property Name="User_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="User_password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="User_Email" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="User_password_1" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Product_User" FromRole="User" ToRole="Product" />
+          <Property Name="ImageDATA" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImageMMType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="User_message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MessageTB" Relationship="WebEconModel.FK_MessageTB_User" FromRole="User" ToRole="MessageTB" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Product_Id" />
+          </Key>
+          <Property Name="Product_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Product_Descr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Product_price" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="Product_CategoryID" Type="Int32" />
+          <Property Name="ImageData" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImageMimeType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Id_USER" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_Product_Category" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Product_User" FromRole="Product" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Product_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Product_CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Id_USER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WebEconEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Category" EntityType="Self.Category" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="Product" EntityType="Self.Product" />
+          <AssociationSet Name="FK_Product_Category" Association="Self.FK_Product_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_User" Association="Self.FK_Product_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <EntitySet Name="Client" EntityType="WebEconModel.Client" />
+          <EntitySet Name="MessageTB" EntityType="WebEconModel.MessageTB" />
+          <AssociationSet Name="FK_MessageTB_User" Association="WebEconModel.FK_MessageTB_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="MessageTB" EntitySet="MessageTB" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Client_Id" />
+          </Key>
+          <Property Name="Client_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Client_adress" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Client_Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Client_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Client_json" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MessageTB">
+          <Key>
+            <PropertyRef Name="Nr" />
+          </Key>
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ID_User" Type="Int32" Nullable="false" />
+          <Property Name="Nr" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="User" Relationship="WebEconModel.FK_MessageTB_User" FromRole="MessageTB" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_MessageTB_User">
+          <End Type="WebEconModel.User" Role="User" Multiplicity="1" />
+          <End Type="WebEconModel.MessageTB" Role="MessageTB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="MessageTB">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WebEconModelStoreContainer" CdmEntityContainer="WebEconEntities">
+          <EntitySetMapping Name="Category">
+            <EntityTypeMapping TypeName="WebEconModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ImageData" ColumnName="ImageData" />
+                <ScalarProperty Name="ImageMimeType" ColumnName="ImageMimeType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="WebEconModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="User_message" ColumnName="User_message" />
+                <ScalarProperty Name="ImageMMType" ColumnName="ImageMMType" />
+                <ScalarProperty Name="ImageDATA" ColumnName="ImageDATA" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="User_login" ColumnName="User_login" />
+                <ScalarProperty Name="User_password" ColumnName="User_password" />
+                <ScalarProperty Name="User_Email" ColumnName="User_Email" />
+                <ScalarProperty Name="User_password_1" ColumnName="User_password_1" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="WebEconModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+                <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
+                <ScalarProperty Name="Product_Descr" ColumnName="Product_Descr" />
+                <ScalarProperty Name="Product_price" ColumnName="Product_price" />
+                <ScalarProperty Name="Product_CategoryID" ColumnName="Product_CategoryID" />
+                <ScalarProperty Name="ImageData" ColumnName="ImageData" />
+                <ScalarProperty Name="ImageMimeType" ColumnName="ImageMimeType" />
+                <ScalarProperty Name="Id_USER" ColumnName="Id_USER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="WebEconModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="Client_json" ColumnName="Client_json" />
+                <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
+                <ScalarProperty Name="Client_Email" ColumnName="Client_Email" />
+                <ScalarProperty Name="Client_adress" ColumnName="Client_adress" />
+                <ScalarProperty Name="Client_name" ColumnName="Client_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MessageTB">
+            <EntityTypeMapping TypeName="WebEconModel.MessageTB">
+              <MappingFragment StoreEntitySet="MessageTB">
+                <ScalarProperty Name="Nr" ColumnName="Nr" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
